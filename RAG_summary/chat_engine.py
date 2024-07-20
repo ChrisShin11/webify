@@ -1,11 +1,5 @@
-from env import ROOT_DIR
-from helper import read_json_from_file
 from index import get_doc_index
-import os
-import json
-from llama_index.core import Settings, Document
-from llama_index.embeddings.together import TogetherEmbedding
-from llama_index.llms.together import TogetherLLM
+from llama_index.core import Document
 from llama_index.core.memory import ChatMemoryBuffer
 
 ##need to test     
@@ -21,7 +15,7 @@ def doc_upload(llm, text_chunks, identifiers):
         index.insert(chunk)
 
 #make async
-def rag_doc_summary_chat(llm, overwrite_index=False):
+def get_rag_doc_summary_chat(llm, overwrite_index=False):
 
     index = get_doc_index(llm, overwrite_index=overwrite_index)
     

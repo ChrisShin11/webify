@@ -1,6 +1,6 @@
 from env import ROOT_DIR
 from helper import read_json_from_file
-from chat_engine import rag_doc_summary_chat
+from chat_engine import get_rag_doc_summary_chat
 import os
 import json
 from llama_index.core import Settings
@@ -30,11 +30,11 @@ def choose_task_type(llm, prompt):
 
     response = llm.complete(f"""Given the following task descriptions, and the following prompt, please output only a 1 or a 2 corresponding to the closest matching task.
                             Prompt: {prompt}. Task Descriptions: {tasks}. Do not output anything other than a 1 or 2.""")
-    
-    if response == str(1):
+
+    if str(response) == str(1):
         return 1
         
-    elif response == str(2):
+    elif str(response) == str(2):
         return 2
     else:
         print('Orchestration Failure')
@@ -47,7 +47,7 @@ def choose_task_type(llm, prompt):
 def controller():
     llm = init()
     graph_chat = None
-    rag_doc_chat = rag_doc_summary_chat(llm)
+    rag_doc_chat = get_rag_doc_summary_chat(llm)
     
     chat_engines = [graph_chat, rag_doc_chat]
     
@@ -58,7 +58,10 @@ def controller():
         
         chat_id = choose_task_type(llm, prompt)
         
-        response = chat_engines[chat_id - 1].chat(prompt)
+        #Use chat store to maintain the same history until reset signal()
+        # response = chat_engines[chat_id - 1].chat(prompt)
+        response = chat_engines[1].chat(prompt)
+        
         print(response)
         
 if __name__ == '__main__':  
