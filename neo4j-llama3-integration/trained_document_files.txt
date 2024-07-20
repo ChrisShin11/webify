@@ -1,2 +1,3 @@
-cats-animal.txt
-llamas-animal.txt
+small-1.json
+small-2.json
+small-3.json
