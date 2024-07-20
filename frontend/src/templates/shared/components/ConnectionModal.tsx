@@ -81,10 +81,12 @@ export default function ConnectionModal({
       setConnectionStatus(isSuccessful);
       isSuccessful
         ? setOpenConnection(false)
-        : setMessage({
-            type: 'danger',
-            content: 'Connection failed, please check the developer console logs for more informations',
-          });
+        : setOpenConnection(false)
+        setMessage({
+          type: 'danger',
+          content: 'Connection failed, please check the developer console logs for more informations',
+        });
+       
     });
   }
 
