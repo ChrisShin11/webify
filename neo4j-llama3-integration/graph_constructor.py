@@ -35,13 +35,13 @@ def log_unique_files_in_directory(directory_path, log_file_path):
 def construct_nodes_from_documents_init():
     # best practice to use upper-case
     entities = Literal["PERSON", "TASK", "DEPARTMENT", "POSITION", "PROJECT"]
-    relations = Literal["WORKS_ON", "WORKS_WITH", "WORKS_AS", "WORKS_FOR", "ASSIGNED_TO", "ASSOCIATED_WITH"]
+    relations = Literal["WORKS_WITH", "WORKS_AS", "WORKS_FOR", "SUPERVISES", "SUPERVISED BY", "ASSIGNED_TO", "ASSOCIATED_WITH"]
 
     # define which entities can have which relations
     validation_schema = {
-        "PERSON": ["WORKS_ON", "WORKS_WITH", "WORKS_AS", "WORKS_FOR"],
+        "PERSON": ["ASSIGNED_TO", "WORKS_WITH", "WORKS_AS", "SUPERVISES", "SUPERVISED BY"],
         "TASK": ["ASSIGNED_TO", "ASSOCIATED_WITH"],
-        "DEPARTMENT": ["ASSOCIATED_WITH", "WORKS_ON"],
+        "DEPARTMENT": ["ASSOCIATED_WITH", "ASSIGNED_TO"],
         "POSITION": ["ASSOCIATED_WITH", "ASSIGNED_TO"],
         "PROJECT": ["ASSIGNED_TO", "ASSOCIATED_WITH"],
     }
@@ -51,9 +51,7 @@ def construct_nodes_from_documents_init():
         possible_entities=entities,
         possible_relations=relations,
         kg_validation_schema=validation_schema,
-        # if false, allows for values outside of the schema
-        # useful for using the schema as a suggestion
-        strict=True,
+        strict=True, # if false, allows for values outside of the schema
     )
     load_dotenv()
     graph_store = Neo4jPropertyGraphStore(
