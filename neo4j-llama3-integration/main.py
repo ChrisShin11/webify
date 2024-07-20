@@ -1,10 +1,16 @@
 import graph_constructor
 import graph_query
-from graph_query import query_graph, query_graph_llama3
+from graph_query import query_graph
+from graph_constructor import construct_nodes_from_documents_init
+
 from test_neo4j_db import test_neo4j_db
 
 from dotenv import load_dotenv
 import os
+
+
+from llama_index.llms.together import TogetherLLM
+from llama_index.core.llms import ChatMessage
 
 
 load_dotenv()
@@ -19,11 +25,9 @@ def main():
         print("Neo4j database is not connected.")
         return
 
-    #os.environ["OPENAI_API_KEY"] = "OPENAI_API_KEY"
-    #openai.api_key = os.environ["OPENAI_API_KEY"]
 
-    print(query_graph("How long do llamas live?"))
-    #print(query_graph_llama3("What is a llama, please tell me now"))
+    index = construct_nodes_from_documents_init()
+
 
     print("done")
 
