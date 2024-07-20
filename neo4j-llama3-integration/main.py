@@ -8,9 +8,13 @@ from test_neo4j_db import test_neo4j_db
 from dotenv import load_dotenv
 import os
 
+from llama_index.core import StorageContext, Settings
+
+
 
 from llama_index.llms.together import TogetherLLM
-from llama_index.core.llms import ChatMessage
+from llama_index.llms.openai import OpenAI
+
 
 
 load_dotenv()
@@ -28,8 +32,16 @@ def main():
 
     index = construct_nodes_from_documents_init()
 
+    query = "What are the similarities between cats and llamas?"
 
-    print("done")
+    Settings.llm = OpenAI(model="gpt-3.5-turbo", temperature=0.0)
+    response = query_graph(query, index)
+    print("GPT response: \n", response)
+
+    Settings.llm = TogetherLLM(model="meta-llama/Llama-3-8b-chat-hf", api_key=os.getenv("LLAMA_API_KEY"))
+    response = query_graph(query, index)
+    print("LLama3 response: \n", response)
+
 
 
 

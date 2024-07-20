@@ -21,10 +21,13 @@ def log_unique_files_in_directory(directory_path, log_file_path):
         for line in f:
             previously_logged_files.append(line.strip())
     file_names = os.listdir(directory_path)
+    added_files = []
     with open(log_file_path, 'w') as f:
         for file_name in file_names:
             if file_name not in previously_logged_files:
                 f.write(file_name + '\n')
+                added_files.append(file_name)
+    return added_files
 
 
 
@@ -71,6 +74,9 @@ def construct_nodes_from_documents_init():
     return index
 
 
+
+def construct_nodes_from_additional_documents(data_path, index):
+    new_training_data = log_unique_files_in_directory(data_path, './neo4j-llama3-integration/trained_document_files.txt')
 
 
 
