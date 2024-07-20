@@ -4,7 +4,7 @@ import PageLayout from './Layout/PageLayout';
 export default function Home() {
   return (
     <div>
-      <Header title={'StarterKit'} navItems={[]} useNeo4jConnect={false} userHeader={true} />
+      <Header title={'Webify'} navItems={[]} useNeo4jConnect={false} userHeader={true} />
       <PageLayout />
     </div>
   );
