@@ -32,6 +32,12 @@ def main():
 
     index = construct_nodes_from_documents_init()
 
+    if type(index) == str:
+        print(index)
+        print("Error in constructing nodes from documents.")
+        return
+
+
     query = "What are the similarities between cats and llamas?"
 
     Settings.llm = OpenAI(model="gpt-3.5-turbo", temperature=0.0)

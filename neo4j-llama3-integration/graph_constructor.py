@@ -17,12 +17,13 @@ from llama_index.graph_stores.neo4j import Neo4jPropertyGraphStore
 
 def log_unique_files_in_directory(directory_path, log_file_path):
     previously_logged_files = []
-    with open(log_file_path, 'r') as f:
-        for line in f:
-            previously_logged_files.append(line.strip())
+    if os.path.exists(log_file_path):
+        with open(log_file_path, 'r') as f:
+            for line in f:
+                previously_logged_files.append(line.strip())
     file_names = os.listdir(directory_path)
     added_files = []
-    with open(log_file_path, 'w') as f:
+    with open(log_file_path, 'a') as f:
         for file_name in file_names:
             if file_name not in previously_logged_files:
                 f.write(file_name + '\n')
@@ -59,24 +60,22 @@ def construct_nodes_from_documents_init():
         url = os.getenv("NEO4J_URI")
     )
     data_path = './neo4j-llama3-integration/data/'
-    documents = SimpleDirectoryReader(data_path).load_data()
-    index = PropertyGraphIndex.from_documents(
-        documents,
-        kg_extractors=[kg_extractor],
-        embed_model=OpenAIEmbedding(model_name="text-embedding-3-small"),
-        #embed_model=TogetherEmbedding(model_name="togethercomputer/m2-bert-80M-8k-retrieval", api_key=os.getenv("LLAMA_API_KEY")),
-        property_graph_store=graph_store,
-        show_progress=True,
-    )
-
-    log_unique_files_in_directory(data_path, './neo4j-llama3-integration/trained_document_files.txt')
-
-    return index
-
-
-
-def construct_nodes_from_additional_documents(data_path, index):
-    new_training_data = log_unique_files_in_directory(data_path, './neo4j-llama3-integration/trained_document_files.txt')
+    data_files = log_unique_files_in_directory(data_path, './neo4j-llama3-integration/trained_document_files.txt')
+    
+    if len(data_files) > 0:
+        for i in range(len(data_files)):
+            data_files[i] = data_path + data_files[i]
+        documents = SimpleDirectoryReader(input_files = data_files).load_data()
+        index = PropertyGraphIndex.from_documents(
+            documents,
+            kg_extractors=[kg_extractor],
+            embed_model=OpenAIEmbedding(model_name="text-embedding-3-small"),
+            #embed_model=TogetherEmbedding(model_name="togethercomputer/m2-bert-80M-8k-retrieval", api_key=os.getenv("LLAMA_API_KEY")),
+            property_graph_store=graph_store,
+            show_progress=True,
+        )
+        return index
+    return "No new files to add to the graph."
 
 
 
