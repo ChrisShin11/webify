@@ -1,0 +1,9 @@
+llama-index
+llama-index-vector-stores-neo4jvector
+llama-index-llms-ollama
+neo4j
+python-dotenv
+llama-index-embeddings-huggingface
+llama-index-llms-together
+llama-index-graph-stores-neo4j
+llama-index-embeddings-together
