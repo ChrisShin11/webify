@@ -7,7 +7,8 @@ from llama_index.core import Settings, Document
 from llama_index.embeddings.together import TogetherEmbedding
 from llama_index.llms.together import TogetherLLM
 from llama_index.core.memory import ChatMemoryBuffer
-        
+
+##need to test     
 def doc_upload(llm, text_chunks, identifiers):
     index = get_doc_index(llm, overwrite_index=False)
     
@@ -47,15 +48,4 @@ def graph_insert(llm, new_entities):
 
 def rag_graph_chat(llm, doc):
     pass
-
-#orchestration should possible work on a higher level? same with llm init
-#graph information necessary (relationships) vs document information
-def orchestrate_tasks(llm, prompt):
-    path = os.path.join(ROOT_DIR, 'tasks.json')
-    tasks = json.dumps(read_json_from_file(path), indent=4)
-    
-    response = llm.complete(f"""Given the following task descriptions, and the following prompt, please output only a 1 or a 2 corresponding to the closest matching task.
-                            Prompt: {prompt}. Task Descriptions: {tasks}. Do not output anything other than a 1 or 2.""")
-    
-    return response
     

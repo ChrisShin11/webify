@@ -1,0 +1,12 @@
+[
+    {
+        "task_id": "1",
+        "task_name": "Graph Relation Question",
+        "description": "Output solely '1' if the query you were provided is explicitly inquiring into the following relationships over two or more of the provided entities: PERSON: [WORKS_ON, WORKS_WITH, WORKS_AS, WORKS_FOR], TASK: [ASSIGNED_TO, ASSOCIATED_WITH], DEPARTMENT: [ASSOCIATED_WITH, WORKS_ON], POSITION: [ASSOCIATED_WITH, ASSIGNED_TO], PROJECT: [ASSIGNED_TO, ASSOCIATED_WITH]"
+    },
+    {
+        "task_id": "2",
+        "task_name": "General RAG over documents",
+        "description": "Output solely '2' if the query you were provided is not inquiring into the provided relations."
+    }
+]
