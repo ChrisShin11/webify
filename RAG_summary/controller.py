@@ -1,12 +1,15 @@
 from env import ROOT_DIR
+from index import get_doc_index
 from helper import read_json_from_file
-from chat_engine import get_rag_doc_summary_chat
+from chat_engine import get_rag_doc_summary_chat, doc_upload
 import os
 import json
 from llama_index.core import Settings
 from llama_index.embeddings.together import TogetherEmbedding
 from llama_index.llms.together import TogetherLLM
 
+import threading
+import time
 
 def init():
     
@@ -46,10 +49,14 @@ def choose_task_type(llm, prompt):
 #re-loading of chat_engines
 def controller():
     llm = init()
-    graph_chat = None
-    rag_doc_chat = get_rag_doc_summary_chat(llm)
     
-    chat_engines = [graph_chat, rag_doc_chat]
+    graph_index = None
+    rag_doc_index = get_doc_index(llm)
+    
+    indices = [graph_index, rag_doc_index]    ## handling index here allows us to re-compute indices with respect to thread coordination
+    chat_engine_functions = [None, get_rag_doc_summary_chat]
+    chat_engines = [None, chat_engine_functions[1](indices[1])]
+    
     
     while True:
         prompt = input('Prompt: ')
@@ -58,11 +65,17 @@ def controller():
         
         chat_id = choose_task_type(llm, prompt)
         
-        #Use chat store to maintain the same history until reset signal()
+        #Use chat store to maintain the same history until reset signal() - will require maintaining indices at this level
+        #when doc_upload_thread triggers recalculation of index and then chat_engine, it awaits an event to be triggered on this side in order to continue receiving doc uploads
         # response = chat_engines[chat_id - 1].chat(prompt)
         response = chat_engines[1].chat(prompt)
         
         print(response)
         
+def doc_upload_thread():
+    pass
+
+def interrupt_thread():
+    pass
 if __name__ == '__main__':  
     controller()
