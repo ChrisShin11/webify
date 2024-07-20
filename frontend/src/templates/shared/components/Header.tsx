@@ -1,8 +1,9 @@
 import { MoonIconOutline, SunIconOutline } from '@neo4j-ndl/react/icons';
-import { Typography, IconButton, Tabs, Switch } from '@neo4j-ndl/react';
+import { Typography, IconButton, Tabs, Switch, Button } from '@neo4j-ndl/react';
 import React, { useState } from 'react';
 import { ThemeWrapperContext } from '../../../context/ThemeWrapper';
 import User from './User';
+import "./header.css"
 
 export default function Header({
   title,
@@ -36,17 +37,17 @@ export default function Header({
   };
 
   return (
-    <div className='n-bg-palette-neutral-bg-weak p-1 border-b-2 border-[rgb(var(--theme-palette-neutral-border-weak))] h-16'>
+    <div className='nav-bar n-bg-palette-neutral-bg-weak p-1 border-b-2 border-[rgb(var(--theme-palette-neutral-border-weak))] h-16'>
       <nav
         className='flex items-center justify-between'
         role='navigation'
         data-testid='navigation'
         id='navigation'
         aria-label='main navigation'
+        
       >
         <section className='flex md:flex-row flex-col items-center w-1/6 shrink-0 grow-0'>
-          <div className='md:inline-block'>
-          </div>
+          <div className='md:inline-block'></div>
           <div className='flex justify-center md:ml-0 pl-0'>
             <Typography className='md:inline-block hidden' variant='h6'>
               {title}
@@ -66,7 +67,14 @@ export default function Header({
             ))}
           </Tabs>
         </section>
+
         <section className='flex items-center justify-end w-1/6 grow-0'>
+          <div className='flex grow-0 gap-x-1 w-max items-center pr-3'>
+          <a className='getstarted-btn w-max' href='/foundation-preview'>Get started</a>
+          </div>
+          <div className='flex grow-0 gap-x-1 w-max items-center pr-3 text-light-neutral-bg-weak'>Login</div>
+          <div className='min-w-max flex grow-0 gap-x-1 w-max items-center pr-3 text-light-neutral-bg-weak'>Contact Us</div>
+
           <div>
             <div className='flex grow-0 gap-x-1 w-max items-center pr-3'>
               {useNeo4jConnect ? (
