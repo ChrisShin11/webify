@@ -38,7 +38,9 @@ def main():
         return
 
 
-    query = "What are the similarities between cats and llamas?"
+    query = "Give me a list of people in the engineering department?"
+
+    print("Query: ", query)
 
     Settings.llm = OpenAI(model="gpt-3.5-turbo", temperature=0.0)
     response = query_graph(query, index)

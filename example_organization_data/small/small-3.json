@@ -1,0 +1,73 @@
+[
+    {
+      "Person": "Emma Wilson",
+      "Position": "Chief Innovation Officer",
+      "Project": "Innovation Lab",
+      "Department": "Executive",
+      "Task": "Leading innovation strategy"
+    },
+    {
+      "Person": "James Anderson",
+      "Position": "Mobile Developer",
+      "Project": "New Mobile Features",
+      "Department": "Development",
+      "Task": "Developing new features for the mobile app"
+    },
+    {
+      "Person": "Amelia Thomas",
+      "Position": "Customer Success Manager",
+      "Project": "Client Relationship Management",
+      "Department": "Customer Success",
+      "Task": "Managing key client relationships"
+    },
+    {
+      "Person": "Benjamin Jackson",
+      "Position": "Network Engineer",
+      "Project": "Network Upgrade",
+      "Department": "IT",
+      "Task": "Upgrading the company's network infrastructure"
+    },
+    {
+      "Person": "Charlotte Lee",
+      "Position": "Social Media Manager",
+      "Project": "Social Media Campaign",
+      "Department": "Marketing",
+      "Task": "Planning and executing social media campaigns"
+    },
+    {
+      "Person": "Henry Martinez",
+      "Position": "QA Engineer",
+      "Project": "Automated Testing Implementation",
+      "Department": "Quality Assurance",
+      "Task": "Developing automated test scripts"
+    },
+    {
+      "Person": "Emily Brown",
+      "Position": "Financial Analyst",
+      "Project": "Budget Forecasting",
+      "Department": "Finance",
+      "Task": "Creating budget forecasts and financial models"
+    },
+    {
+      "Person": "Daniel Garcia",
+      "Position": "Full-stack Developer",
+      "Project": "Internal Tool Development",
+      "Department": "Development",
+      "Task": "Building internal tools for the company"
+    },
+    {
+      "Person": "Grace Davis",
+      "Position": "Support Engineer",
+      "Project": "Customer Support",
+      "Department": "Support",
+      "Task": "Resolving technical issues for customers"
+    },
+    {
+      "Person": "Alexander Hernandez",
+      "Position": "Blockchain Developer",
+      "Project": "Blockchain Integration",
+      "Department": "Development",
+      "Task": "Integrating blockchain technology into existing systems"
+    }
+  ]
+  

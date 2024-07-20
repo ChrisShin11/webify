@@ -34,14 +34,16 @@ def log_unique_files_in_directory(directory_path, log_file_path):
 
 def construct_nodes_from_documents_init():
     # best practice to use upper-case
-    entities = Literal["PERSON", "PLACE", "ORGANIZATION"]
-    relations = Literal["HAS", "PART_OF", "WORKED_ON", "WORKED_WITH", "WORKED_AT"]
+    entities = Literal["PERSON", "TASK", "DEPARTMENT", "POSITION", "PROJECT"]
+    relations = Literal["WORKS_ON", "WORKS_WITH", "WORKS_AS", "WORKS_FOR", "ASSIGNED_TO", "ASSOCIATED_WITH"]
 
     # define which entities can have which relations
     validation_schema = {
-        "PERSON": ["HAS", "PART_OF", "WORKED_ON", "WORKED_WITH", "WORKED_AT"],
-        "PLACE": ["HAS", "PART_OF", "WORKED_AT"],
-        "ORGANIZATION": ["HAS", "PART_OF", "WORKED_WITH"],
+        "PERSON": ["WORKS_ON", "WORKS_WITH", "WORKS_AS", "WORKS_FOR"],
+        "TASK": ["ASSIGNED_TO", "ASSOCIATED_WITH"],
+        "DEPARTMENT": ["ASSOCIATED_WITH", "WORKS_ON"],
+        "POSITION": ["ASSOCIATED_WITH", "ASSIGNED_TO"],
+        "PROJECT": ["ASSIGNED_TO", "ASSOCIATED_WITH"],
     }
 
     kg_extractor = SchemaLLMPathExtractor(
@@ -70,7 +72,6 @@ def construct_nodes_from_documents_init():
             documents,
             kg_extractors=[kg_extractor],
             embed_model=OpenAIEmbedding(model_name="text-embedding-3-small"),
-            #embed_model=TogetherEmbedding(model_name="togethercomputer/m2-bert-80M-8k-retrieval", api_key=os.getenv("LLAMA_API_KEY")),
             property_graph_store=graph_store,
             show_progress=True,
         )

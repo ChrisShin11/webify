@@ -1,0 +1,73 @@
+[
+    {
+      "Person": "Sophia Lee",
+      "Position": "Product Manager",
+      "Project": "Mobile App Development",
+      "Department": "Product",
+      "Task": "Defining product requirements and roadmap"
+    },
+    {
+      "Person": "Liam Johnson",
+      "Position": "DevOps Engineer",
+      "Project": "Cloud Infrastructure Optimization",
+      "Department": "Operations",
+      "Task": "Automating cloud resource management"
+    },
+    {
+      "Person": "Olivia Martinez",
+      "Position": "UX Designer",
+      "Project": "User Experience Overhaul",
+      "Department": "Design",
+      "Task": "Creating wireframes and prototypes"
+    },
+    {
+      "Person": "Noah Rodriguez",
+      "Position": "Backend Developer",
+      "Project": "API Development",
+      "Department": "Engineering",
+      "Task": "Building and maintaining RESTful APIs"
+    },
+    {
+      "Person": "Ava Brown",
+      "Position": "Data Analyst",
+      "Project": "Customer Data Analysis",
+      "Department": "Analytics",
+      "Task": "Generating insights from customer data"
+    },
+    {
+      "Person": "Ethan Taylor",
+      "Position": "Front-end Developer",
+      "Project": "Website Redesign",
+      "Department": "Design",
+      "Task": "Coding the front-end of the new website"
+    },
+    {
+      "Person": "Isabella White",
+      "Position": "Technical Writer",
+      "Project": "Documentation Improvement",
+      "Department": "Support",
+      "Task": "Updating technical documents"
+    },
+    {
+      "Person": "Mason Harris",
+      "Position": "Project Coordinator",
+      "Project": "Market Expansion Plan",
+      "Department": "Marketing",
+      "Task": "Assisting with project scheduling and coordination"
+    },
+    {
+      "Person": "Mia Clark",
+      "Position": "Cybersecurity Specialist",
+      "Project": "Security Enhancement",
+      "Department": "IT",
+      "Task": "Implementing security protocols and measures"
+    },
+    {
+      "Person": "Lucas Robinson",
+      "Position": "AI Researcher",
+      "Project": "Machine Learning Model Improvement",
+      "Department": "Research",
+      "Task": "Developing new machine learning algorithms"
+    }
+  ]
+  
