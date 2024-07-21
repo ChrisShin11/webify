@@ -20,6 +20,7 @@ import { createPortal } from 'react-dom';
 // import IconButtonWithToolTip from '../UI/IconButtonToolTip';
 import Chatbot from '../../shared/components/Chatbot';
 
+
 const ChatbotSideNav: React.FC<SideNavProps> = ({
   position,
   toggleDrawer,
@@ -166,7 +167,8 @@ const ChatbotSideNav: React.FC<SideNavProps> = ({
             }}
             open={isChatModalOpen}
             size='unset'
-            disableCloseButton={true}
+            disableCloseButton={false}
+            onClose={handleShrinkClick}
           >
             <Dialog.Header className='flex justify-between self-end' id='chatbot-dialog-title'>
               {/* <ExpandedChatButtonContainer
