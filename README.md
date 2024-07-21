@@ -17,8 +17,8 @@ Basic Description: Webify is an HR Application with RAG (Retrieval-Augmented Gen
     - [POST /api/documents/upload](#post-apidocumentsupload)
     - [POST /api/chat](#post-apichat)
 - [API Documentation](#api-documentation)
-- [Multi-Agent RAG Workflow](#Multi-Agent-RAG-Workflow)
-- [Neo4j Integration](#Neo4j-Integration)
+- [Multi-Agent RAG Workflow](#multi-agent-rag-workflow)
+- [Neo4j Integration](#neo4j-integration)
 - [Running Tests](#running-tests)
 - [Troubleshooting](#troubleshooting)
 
