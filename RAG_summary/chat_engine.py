@@ -15,9 +15,10 @@ def doc_upload(index, text_chunks, identifiers):
     return index
 
 #make async
-def get_rag_doc_summary_chat(index):
+def get_rag_doc_summary_chat(index, memory=None):
     
-    memory = ChatMemoryBuffer.from_defaults(token_limit=1500)
+    if memory == None:
+        memory = ChatMemoryBuffer.from_defaults(token_limit=1500)
     
     chat_engine = index.as_chat_engine(
         chat_mode ='context',
@@ -39,6 +40,22 @@ def get_rag_doc_summary_chat(index):
 def graph_insert(llm, new_entities):
     pass
 
-def rag_graph_chat(llm, doc):
-    pass
+def get_rag_graph_chat(index, memory=None):
+    if memory == None:
+        memory = ChatMemoryBuffer.from_defaults(token_limit=8192)
+        
+    chat_engine = index.as_chat_engine(
+        chat_mode = 'context',
+        memory=memory,
+        system_prompt=("""You are a chatbot provided with relational data, originally in graph form. 
+                       It will follow a schema PERSON: [WORKS_ON, WORKS_WITH, WORKS_AS, WORKS_FOR], TASK: [ASSIGNED_TO, ASSOCIATED_WITH], 
+                       DEPARTMENT: [ASSOCIATED_WITH, WORKS_ON], 
+                       POSITION: [ASSOCIATED_WITH, ASSIGNED_TO], PROJECT: [ASSIGNED_TO, ASSOCIATED_WITH]
+                       Answer relation-based questions over this data. 
+                       You may be asked to enumerate Entities. Pleae provide a list in this case."""),
+    )
+    
+    
+    return chat_engine
+    
     

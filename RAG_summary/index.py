@@ -6,6 +6,7 @@ from helper import read_json_from_file, save_json_objects_as_text_files
 import os
 from env import ROOT_DIR, SPLITTER_CHUNK_SIZE
 
+from graph_constructor import construct_nodes_from_documents_init, index_from_neo4j_graph
 
 def get_doc_index(llm, overwrite_index=False):
     
@@ -59,3 +60,21 @@ def _json_to_docs(target='workers.json'):
         employee_docs.extend(docs)
         
     return employee_docs
+
+def get_graph_index(overwrite_index=False):
+    
+    try:
+        storage_context = StorageContext.from_defaults(persist_dir='storage')
+                
+    except FileNotFoundError as e:
+        overwrite_index = True
+    
+    if overwrite_index:
+        pass
+    else:
+        return load_index_from_storage(storage_context)
+    
+    vector_index = index_from_neo4j_graph()
+    vector_index.storage_context.persist('graph_index')
+    
+    return vector_index
