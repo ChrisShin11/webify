@@ -1,17 +1,12 @@
-import graph_constructor
-import graph_query
-from graph_query import query_graph
-from graph_constructor import construct_nodes_from_documents_init
-
-from test_neo4j_db import test_neo4j_db
-
 from dotenv import load_dotenv
 import os
 
-from llama_index.core import StorageContext, Settings
+from test_neo4j_db import test_neo4j_db
+from graph_query import query_graph
+from graph_constructor import construct_nodes_from_documents_init, index_from_neo4j_graph
+from manage_index import store_index, load_index
 
-
-
+from llama_index.core import Settings
 from llama_index.llms.together import TogetherLLM
 from llama_index.llms.openai import OpenAI
 
@@ -32,16 +27,20 @@ def main():
 
     index = construct_nodes_from_documents_init()
 
-    if type(index) == str:
-        print(index)
-        print("Error in constructing nodes from documents.")
-        return
 
+    if type(index) == str:
+        print("Error in constructing nodes from documents.")
+        print(index)
+        return
+        #graph_index = load_graph_index()
+        #vector_index = load_vector_index()
+    else: 
+        pass
+        #store_index(vector_index)
 
     query = "Give me a list of people in the engineering department?"
 
     print("Query: ", query)
-
     Settings.llm = OpenAI(model="gpt-3.5-turbo", temperature=0.0)
     response = query_graph(query, index)
     print("GPT response: \n", response)
@@ -50,7 +49,8 @@ def main():
     response = query_graph(query, index)
     print("LLama3 response: \n", response)
 
-
+    vector_index = index_from_neo4j_graph()
+    vector_index.storage_context.persist()
 
 
 

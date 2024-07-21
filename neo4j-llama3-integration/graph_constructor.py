@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 
 from llama_index.core import SimpleDirectoryReader
 from llama_index.core import PropertyGraphIndex
+from llama_index.core import StorageContext
+from llama_index.core import KnowledgeGraphIndex
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.llms.openai import OpenAI
 from llama_index.core.indices.property_graph import SchemaLLMPathExtractor
@@ -12,6 +14,9 @@ from llama_index.llms.together import TogetherLLM
 from llama_index.embeddings.together import TogetherEmbedding
 
 from llama_index.graph_stores.neo4j import Neo4jPropertyGraphStore
+from llama_index.readers.graphdb_cypher import GraphDBCypherReader
+
+
 
 
 
@@ -35,13 +40,13 @@ def log_unique_files_in_directory(directory_path, log_file_path):
 def construct_nodes_from_documents_init():
     # best practice to use upper-case
     entities = Literal["PERSON", "TASK", "DEPARTMENT", "POSITION", "PROJECT"]
-    relations = Literal["WORKS_ON", "WORKS_WITH", "WORKS_AS", "WORKS_FOR", "ASSIGNED_TO", "ASSOCIATED_WITH"]
+    relations = Literal["WORKS_WITH", "WORKS_AS", "WORKS_FOR", "SUPERVISES", "SUPERVISED BY", "ASSIGNED_TO", "ASSOCIATED_WITH"]
 
     # define which entities can have which relations
     validation_schema = {
-        "PERSON": ["WORKS_ON", "WORKS_WITH", "WORKS_AS", "WORKS_FOR"],
+        "PERSON": ["ASSIGNED_TO", "WORKS_WITH", "WORKS_AS", "SUPERVISES", "SUPERVISED BY"],
         "TASK": ["ASSIGNED_TO", "ASSOCIATED_WITH"],
-        "DEPARTMENT": ["ASSOCIATED_WITH", "WORKS_ON"],
+        "DEPARTMENT": ["ASSOCIATED_WITH", "ASSIGNED_TO"],
         "POSITION": ["ASSOCIATED_WITH", "ASSIGNED_TO"],
         "PROJECT": ["ASSIGNED_TO", "ASSOCIATED_WITH"],
     }
@@ -51,9 +56,7 @@ def construct_nodes_from_documents_init():
         possible_entities=entities,
         possible_relations=relations,
         kg_validation_schema=validation_schema,
-        # if false, allows for values outside of the schema
-        # useful for using the schema as a suggestion
-        strict=True,
+        strict=True, # if false, allows for values outside of the schema
     )
     load_dotenv()
     graph_store = Neo4jPropertyGraphStore(
@@ -78,8 +81,36 @@ def construct_nodes_from_documents_init():
         return index
     return "No new files to add to the graph."
 
+def index_from_neo4j_graph():
+    query = """
+    MATCH p=()-[r]->()
+    WHERE NOT type(r) = 'MENTIONS'
+    RETURN p LIMIT 100;
+    """
+    load_dotenv()
+    url = os.getenv("NEO4J_URI")
+    username = os.getenv("NEO4J_USERNAME")
+    password = os.getenv("NEO4J_PASSWORD")  
+    database = None 
+    #database = os.getenv("NEO4J_DATABASE")
+
+    graph_store = Neo4jPropertyGraphStore(username, password, url)
+
+    reader = GraphDBCypherReader(url, username, password, database)
+    documents = reader.load_data(query)
+
+    storage_context = StorageContext.from_defaults(graph_store = graph_store)
+
+    index = KnowledgeGraphIndex.from_documents(
+        documents,
+        max_triplets_per_chunk=2, 
+        storage_context=storage_context,
+        include_embeddings=True,
+        show_progress=True
+    )
 
 
+    return index
 
 """
 def construct_nodes_from_documents_llama3():

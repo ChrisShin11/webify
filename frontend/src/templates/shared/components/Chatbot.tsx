@@ -73,8 +73,9 @@ export default function Chatbot(props: ChatbotProps) {
   }, [listMessages]);
 
   return (
-    <div className='n-bg-palette-neutral-bg-default flex flex-col justify-between min-h-screen max-h-full overflow-hidden'>
-      <div className='flex overflow-y-auto pb-12 min-w-full'>
+    <div className='n-bg-palette-neutral-bg-default flex flex-col justify-between  h-full overflow-y-scroll'>
+     {/* <h1>he</h1> */}
+      <div className='flex overflow-y-auto mt-14 pb-12 min-w-full'>
         <Widget className='n-bg-palette-neutral-bg-default w-full h-full' header='' isElevated={false}>
           <div className='flex flex-col gap-3 p-3'>
             {listMessages.map((chat) => (

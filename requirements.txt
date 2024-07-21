@@ -7,3 +7,4 @@ llama-index-embeddings-huggingface
 llama-index-llms-together
 llama-index-graph-stores-neo4j
 llama-index-embeddings-together
+llama-index-readers-graphdb-cypher

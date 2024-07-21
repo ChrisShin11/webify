@@ -3,9 +3,9 @@ import { SideNavigation } from '@neo4j-ndl/react';
 import { DocumentMagnifyingGlassIconOutline, DbmsIcon, BellAlertIconOutline } from '@neo4j-ndl/react/icons';
 
 export default function SideNav() {
-  const [expanded, setOnExpanded] = useState<boolean>(!(window.innerWidth < 450));
+  const [expanded, setOnExpanded] = useState<boolean>(false);
   const [selected, setSelected] = useState('instances');
-  const [isMobile] = useState<boolean>(window.innerWidth < 450);
+  const isMobile = window.innerWidth < 450
 
   const handleClick = (item: string) => (e: any) => {
     e.preventDefault();

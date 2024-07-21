@@ -10,3 +10,5 @@ python-env
 venv/
 __pycache__
 *.pyc
+neo4j-llama3-integration/.env
+

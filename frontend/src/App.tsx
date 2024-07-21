@@ -21,10 +21,25 @@ import User from './templates/shared/components/User';
 import { FileContextProvider } from './context/connectionFile';
 
 import './ConnectionModal.css';
+import FileTable from './templates/shared/components/FileTable';
+import { FileTableProps } from './types';
 
 function App() {
   const messages = messagesData.listMessages;
   const [activeTab, setActiveTab] = useState<string>('Home');
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [connectionStatus, setConnectionStatus] = useState<boolean>(true);
+
+  const onInspect = (fileName: string) => {
+    console.log('inspect file: ', fileName);
+  };
+
+  const fileTableProps: FileTableProps = {
+    isExpanded,
+    connectionStatus,
+    setConnectionStatus,
+    onInspect,
+  }
   return (
     <BrowserRouter>
       <ThemeWrapper>
@@ -42,6 +57,7 @@ function App() {
             }
           />
           <Route path='/chat-widget-preview' element={<Chatbot messages={messages} />} />
+          <Route path='/file' element={<FileTable {...fileTableProps} />} /> 
           <Route
             path='/header-preview'
             element={
