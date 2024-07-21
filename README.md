@@ -6,7 +6,7 @@ Date: 2024-07-21
 
 ---
 
-Basic Description: Webify is an HR Application with RAG (Retrieval-Augmented Generation) on Graph DB using Llama 3 LLM. It allows users to upload documents, process them using llama-index, store relevant employee information in a Neo4j graph database, and interact with a Llama 3-powered chatbot.
+Basic Description: Webify is an Enterprise Data Management Application with RAG (Retrieval-Augmented Generation) on Graph DB using Llama 3 LLM. It allows users to upload documents, process them using llama-index, store relevant employee information in a Neo4j graph database, and interact with a Llama 3-powered chatbot.
 
 # Table of Contents
 
