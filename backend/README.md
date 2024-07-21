@@ -127,6 +127,46 @@ The Swagger UI provides a user-friendly interface to explore and test the API en
 
 You can use the Swagger UI to send requests to the API endpoints and test them directly from the documentation page and view the corresponding responses.
 
+## Multi-Agent RAG Workflow
+
+Webify manages and leverages both rigid graph structures as well as unstructured document objects in order to model a richer image of employees and their working environment. In order to answer dynamic queries over both data types, we implemented the Multi-Agent RAG Workflow using LLamaIndex. We instantiated two separate chat engines with shared chat memory, and one independent agent to discern whether Agent 1 (RAG over Graph) or Agent 2 (RAG over Documents) was better suited to answer the question.
+
+### Orchestration
+
+The specific query used to discern between Agents is the following:
+
+```
+    response = llm.complete(f"""Given the following task descriptions, and the following prompt, please output only a 1 or a 2 corresponding to the closest matching task.
+                            Prompt: {prompt}. Task Descriptions: {tasks}. Do not output anything other than a 1 or 2.""")
+```
+and in ```RAG_summary/tasks.json```, you can find the following:
+
+```
+[
+    {
+        "task_id": "1",
+        "task_name": "Graph Relation Question",
+        "description": "Output solely '1' if the query you were provided is explicitly inquiring into the following relationships over two or more of the provided entities: PERSON: [WORKS_ON, WORKS_WITH, WORKS_AS, WORKS_FOR], TASK: [ASSIGNED_TO, ASSOCIATED_WITH], DEPARTMENT: [ASSOCIATED_WITH, WORKS_ON], POSITION: [ASSOCIATED_WITH, ASSIGNED_TO], PROJECT: [ASSIGNED_TO, ASSOCIATED_WITH]. Also Output '1' if the query is asking about entity counts or enumeration of entities."
+    },
+    {
+        "task_id": "2",
+        "task_name": "General RAG over documents",
+        "description": "Output solely '2' if the query you were provided is not inquiring into the provided relations."
+    }
+]
+```
+
+The origin of the referenced schema can be seen when discussing our Neo4j Integration.
+
+Generally, we see that Agent 1 is given control over the response flow when the user asks for enumerations or inquires into relationships over our employees. This data can be enriched and the schema altered as necessary for the relationships / aggregate understandings needed of the entity graph at any given company.
+
+When the orchestrator is unsure, we defer to Agent 2, for the more classical Document Summary RAG flow.
+
+### Iterative Indexing
+
+Webify provides a platform for employees to asyncronously upload their documents with confidence that their work will contribute to the model of their shared workspace. We use event-triggers to maintain consistency with uploaded documents, seamlessly iterating on the indices and re-generating the chat engines. 
+
+Our controller module keeps both chats rendered at all times, and maintains chat logs. When our orchestrator switches response flow between agents, the agent being rotated in will be provided the chat history, such that no change is perceived by the user.
 
 ## Neo4j Integration
 
