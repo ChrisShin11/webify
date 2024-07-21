@@ -191,6 +191,10 @@ Webify provides a platform for employees to asyncronously upload their documents
 
 Our controller module keeps both chats rendered at all times, and maintains chat logs. When our orchestrator switches response flow between agents, the agent being rotated in will be provided the chat history, such that no change is perceived by the user.
 
+### Module Specification
+
+LLama3 was the LLM used for each of the above agents. Agent 1 uses a KnowledgeGraphIndex and Agent 2 runs off of a DocumentSummaryIndex.
+
 ## Neo4j Integration
 
 The file named "graph_constructor.py" contains two integral functions for creating and accessing the neo4j graph store from the provided documentation. 
