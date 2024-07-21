@@ -1,2 +1,12 @@
-python-env
+.vscode/
+.idea/
+
 .env
+config.ini
+
+# Python
+python-env
+.venv/
+venv/
+__pycache__
+*.pyc

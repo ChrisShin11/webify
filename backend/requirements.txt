@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+pydantic
+tortoise-orm
+asyncpg
+neo4j
+python-multipart
+llama-index
+transformers
+celery
+redis
+python-dotenv
+pydantic-settings
+python-jose
+passlib
+bcrypt
+email-validator
