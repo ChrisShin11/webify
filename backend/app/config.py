@@ -17,6 +17,9 @@ class Settings(BaseSettings):
     NEO4J_HTTP_PORT: int
     NEO4J_BOLT_PORT: int
 
+    # OpenAI
+    OPENAI_API_KEY: str
+
     # Derived settings
     DATABASE_URL: str = None
     NEO4J_URI: str = None
