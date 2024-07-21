@@ -21,6 +21,19 @@ def query_graph(query, index):
 
 
 """
+    query_engine = index.as_query_engine(
+        include_text=True, response_mode="tree_summarize"
+    )
+    response = query_engine.query(
+        "Give me a list of people in the engineering department?"
+    )
+
+    print(response)
+"""
+
+
+
+"""
 def query_graph_llama3(query):
     url = os.getenv("NEO4J_URI")
     username = os.getenv("NEO4J_USERNAME")
