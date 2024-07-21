@@ -11,11 +11,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^5.16.4",
+    "@mui/types": "^7.2.15",
     "@neo4j-ndl/base": "^2.6.0",
     "@neo4j-ndl/react": "2.6.2",
     "@neo4j-nvl/base": "^0.3.1",
     "@tanstack/react-table": "^8.9.3",
     "autoprefixer": "^10.4.17",
+    "axios": "^1.7.2",
     "eslint-plugin-react": "^7.33.2",
     "neo4j-driver": "^5.14.0",
     "postcss": "^8.4.33",
@@ -28,6 +32,7 @@
     "@types/node": "^20.11.16",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",

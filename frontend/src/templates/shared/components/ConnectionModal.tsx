@@ -1,6 +1,7 @@
 import { Button, Dialog, TextInput, Dropdown, Banner, Dropzone } from '@neo4j-ndl/react';
 import { useState } from 'react';
 import { setDriver } from '../utils/Driver';
+import "./ConnecttionModal.css"
 
 interface Message {
   type: 'success' | 'info' | 'warning' | 'danger' | 'neutral';
@@ -89,10 +90,13 @@ export default function ConnectionModal({
        
     });
   }
-
+  const handleClick = () => {
+    setOpenConnection(false)
+  }
   return (
     <>
       <Dialog size='small' open={open} aria-labelledby='form-dialog-title' disableCloseButton>
+        <h1 className='close-modal text-end cursor-pointer' onClick={handleClick}>X</h1>
         <Dialog.Header id='form-dialog-title'>Connect to Neo4j</Dialog.Header>
         <Dialog.Content className='n-flex n-flex-col n-gap-token-4'>
           {message && <Banner type={message.type}>{message.content}</Banner>}
@@ -183,6 +187,7 @@ export default function ConnectionModal({
             </div>
           </div>
           <Button onClick={() => submitConnection()}>Submit</Button>
+          
         </Dialog.Content>
       </Dialog>
     </>

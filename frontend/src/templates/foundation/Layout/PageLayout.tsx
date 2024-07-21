@@ -9,7 +9,7 @@ import DrawerChatbot from '../../shared/components/DrawerChatbot';
 
 export default function PageLayout() {
   const messages = messagesData.listMessages
-  const [isRightExpanded, setIsRightExpanded] = useState<boolean>(true);
+  const [isRightExpanded, setIsRightExpanded] = useState<boolean>(false);
   const [clearHistoryData, setClearHistoryData] = useState<boolean>(false);
   const [showDrawerChatbot, setShowDrawerChatbot] = useState<boolean>(true);
 

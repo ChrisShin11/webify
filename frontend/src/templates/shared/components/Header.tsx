@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { ThemeWrapperContext } from '../../../context/ThemeWrapper';
 import User from './User';
 import "./header.css"
+import { Link, NavLink } from 'react-router-dom';
+import logo from '../../../assets/img/template/logo.png'
 
 export default function Header({
   title,
@@ -35,7 +37,7 @@ export default function Header({
     });
     themeUtils.toggleColorMode();
   };
-
+  console.log(logo)
   return (
     <div className='nav-bar n-bg-palette-neutral-bg-weak p-1 border-b-2 border-[rgb(var(--theme-palette-neutral-border-weak))] h-16'>
       <nav
@@ -47,10 +49,14 @@ export default function Header({
         
       >
         <section className='flex md:flex-row flex-col items-center w-1/6 shrink-0 grow-0'>
-          <div className='md:inline-block'></div>
+          <div className='md:inline-block mr-2'></div>
           <div className='flex justify-center md:ml-0 pl-0'>
-            <Typography className='md:inline-block hidden' variant='h6'>
-              {title}
+            <Typography className='md:inline-block hidden text-neutral-10' variant='h6'>
+              {/* <a href='/'>{title} </a> */}
+              
+              <a href='/'><img src={logo} alt='Logo' width='150' height='auto' /></a>
+
+              
             </Typography>
             <Typography className='md:hidden inline-block' variant='subheading-small'>
               {title}
@@ -93,7 +99,7 @@ export default function Header({
                   labelBefore={true}
                 />
               ) : null}
-              <IconButton aria-label='Toggle Dark mode' clean size='large' onClick={toggleColorMode}>
+              <IconButton aria-label='Toggle Dark mode ' className='text-neutral-10' clean size='large' onClick={toggleColorMode}>
                 {themeMode === 'dark' ? (
                   <span role='img' aria-label='sun'>
                     <SunIconOutline />
