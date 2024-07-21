@@ -74,30 +74,53 @@ This command will build the Docker image and start the container. The API will b
 ## Directory Structure after Setup
 
 ```plaintext
-csvembed/
-├── .venv/
-│   └── ...
-├── app/
-│   ├── models/
+webify/
+├── backend/
+│   ├── app/
+│   │   └── ...
+│   ├── tests/
+│   │   └── ...
+│   ├── .dockerignore
+│   ├── docker-compose.yml
+│   ├── Dockerfile
+│   ├── entrypoint.sh
+│   ├── README.md
+│   ├── requirements.txt
+│   └── .env.example
+├── frontend/
+│   ├── docs/
 │   │   ├── csv_models.py
 │   │   └── embedding_models.py
-│   ├── __init__.py
-│   ├── main.py
+│   ├── public/
+│   │   └── ...
+│   ├── src/
+│   │   └── ...
 │   └── utils.py
-├── data/
-│   ├── invalid_columns.csv
-│   ├── missing_response.csv
-│   └── valid.csv
-├── tests/
-│   ├── __init__.py
-│   ├── test_csv_endpoint.py
-│   └── test_embedding_endpoint.py
+├── neo4j-llama3-integration/
+│   ├── data/
+│   │   └── ...
+│   ├── graph_constructor.py
+│   ├── trained_document_files.txt
+│   ├── graph_query.py
+│   ├── main.py
+│   ├── requirements.txt
+│   └── ...
+├── RAG_summary/
+│   ├── data/
+│   │   └── ...
+│   ├── chat_engine.py
+│   ├── controller.py
+│   ├── env.py
+│   ├── index.py
+│   ├── helper.py
+│   └── tasks.json
+├── index
+│   └── ...
+├── storage
+│   ├── index_store.json
+│   └── ...
 ├── .gitignore
-├── docker-compose.yml
-├── Dockerfile
-├── pytest.ini
-├── README.md
-└── requirements.txt
+└── README.md
 ```
 
 ## API Endpoints
