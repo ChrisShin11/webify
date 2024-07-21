@@ -11,6 +11,8 @@ def doc_upload(index, text_chunks, identifiers):
         
     for chunk in doc_chunks:
         index.insert(chunk)
+        
+    return index
 
 #make async
 def get_rag_doc_summary_chat(index):

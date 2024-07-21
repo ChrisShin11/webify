@@ -12,6 +12,10 @@ from llama_index.core import StorageContext
 import threading
 import time
 
+indices = [None, None]
+chat_engine_functions = [None, get_rag_doc_summary_chat]
+chat_engines = [None, chat_engine_functions[1](indices[1])]
+
 def init():
     
     try:
@@ -51,16 +55,14 @@ def choose_task_type(llm, prompt):
 #this controller runs in one thread, doc insertion runs in another, and insertion triggers events that cause
 #re-loading of chat_engines
 def controller(interrupt_event):
+    global indices, chat_engine_functions, chat_engines
+    
     llm = init()
     
     graph_index = None
     rag_doc_index = get_doc_index(llm)
     
-    index_func = [None, get_doc_index]
-    
     indices = [graph_index, rag_doc_index]    ## handling index here allows us to re-compute indices with respect to thread coordination
-    chat_engine_functions = [None, get_rag_doc_summary_chat]
-    chat_engines = [None, chat_engine_functions[1](indices[1])]
     
     api_event = threading.Event()
     return_event = threading.Event()
@@ -79,15 +81,9 @@ def controller(interrupt_event):
         if prompt.upper() == 'N':
             break
     
-        
+        #will be thread behavior
         if api_event.is_set():
-            indices[1] = index_func[1](llm, overwrite_index= True)
-            indices[1].storage_context.persist("index")
-            print('Recalculating chat engines...')
-            chat_engines[1] = chat_engine_functions[1](indices[1])
-            
-            return_event.clear()
-            print('Complete')
+            new_doc(return_event)
         
         chat_id = choose_task_type(llm, prompt)
         
@@ -97,6 +93,16 @@ def controller(interrupt_event):
         response = chat_engines[1].chat(prompt)
         
         print(response)
+        
+def new_doc(return_event):
+    global indices, chat_engines, chat_engine_functions
+    indices[1] = doc_upload(indices[1], ['new information yayyyyyyyyyyyy'], ['identifier1'])
+    indices[1].storage_context.persist("index")
+    print('Recalculating chat engines...')
+    chat_engines[1] = chat_engine_functions[1](indices[1])
+    
+    return_event.clear()
+    print('Complete')
         
 def doc_upload_thread(event, return_event):
     while True:
