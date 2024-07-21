@@ -1,2 +1,14 @@
+.vscode/
+.idea/
+
+.env
+config.ini
+
+# Python
 python-env
+.venv/
+venv/
+__pycache__
+*.pyc
 neo4j-llama3-integration/.env
+
