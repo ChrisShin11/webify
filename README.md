@@ -6,7 +6,7 @@ Date: 2024-07-21
 
 ---
 
-Basic Description:
+Basic Description: Webify is an HR Application with RAG (Retrieval-Augmented Generation) on Graph DB using Llama 3 LLM. It allows users to upload documents, process them using llama-index, store relevant employee information in a Neo4j graph database, and interact with a Llama 3-powered chatbot.
 
 # Table of Contents
 
@@ -14,8 +14,8 @@ Basic Description:
 - [Setup](#setup)
 - [Directory Structure after Setup](#directory-structure-after-setup)
 - [API Endpoints](#api-endpoints)
-    - [POST /csv](#post-csv)
-    - [GET /embedding](#get-embedding)
+    - [POST /api/documents/upload](#post-apidocumentsupload)
+    - [POST /api/chat](#post-apichat)
 - [API Documentation](#api-documentation)
 - [Multi-Agent RAG Workflow](#Multi-Agent-RAG-Workflow)
 - [Neo4j Integration](#Neo4j-Integration)
@@ -33,7 +33,7 @@ Basic Description:
 1. Clone the repository (private repository) or extract it from the zip file provided. Navigate to the project directory:
 
 ```bash
-git clone https://github.com/{url} # optional
+git clone https://github.com/ChrisShin11/webify # optional
 cd webify
 ```
 2. Create and activate the virtual environment:
@@ -58,25 +58,13 @@ Delete or comment the following line of code in python-env\Lib\site-packages\lla
 269                 self._graph_store.upsert_triplet(*triplet)
 ```
 
-5. Run the application using Docker Compose:
+5. To run the backend application using Docker Compose:
 
 ```bash
 docker-compose up --build
 ```
 
-6. OR, Run the fastapi application using uvicorn:
-
-```bash
-uvicorn main:app --reload
-```
-
-7. OR, Run the fastapi development server:
-    
-```bash
-fastapi dev
-```
-
-This command will build the Docker image and start the container. The API will be accessible at `http://localhost:4070`.
+This command will build the Docker image and start the container. The API will be accessible at `http://localhost:8000`.
 
 ## Directory Structure after Setup
 
@@ -131,31 +119,23 @@ webify/
 ```
 
 ## API Endpoints
-
-### POST /csv
-
-- Description: Accepts a CSV file and an optional "equals" query parameter, and returns the rows in the CSV where the "Value" column matches the "equals" value as JSON.
+### POST /api/documents/upload
+- Description: Accepts a document file, processes it using llama-index, and stores relevant employee information in the Neo4j database.
 - Request:
-    - File: CSV file (required)
-    - Query Parameter: "equals" (optional)
-- Response: JSON array of rows matching the "equals" value
+    - File: Document file (PDF, DOCX, or TXT) (required)
+- Response: JSON object with upload status and document ID
 
-### GET /embedding
-
-- Description: Accepts a "text" query parameter and returns a JSON object containing a text embedding.
+### POST /api/chat
+- Description: Accepts a chat message and returns a response from the Llama 3-powered chatbot.
 - Request:
-    - Query Parameter: "text" (required)
-- Response: JSON object with the "embedding" key containing the text embedding
+    - JSON body with "message" key (required)
+- Response: JSON object with the chatbot's response
 
-This will run all the tests defined in the `tests` directory.
 
 ## API Documentation
-
-The API documentation is automatically generated using Swagger UI. You can access the interactive documentation by navigating to `http://localhost:4070/docs` in your web browser after running the container or the application.
+The API documentation is automatically generated using Swagger UI. You can access the interactive documentation by navigating to `http://localhost:8000/docs` in your web browser after running the application.
 
 The Swagger UI provides a user-friendly interface to explore and test the API endpoints. It displays information about each endpoint, including the request and response formats, required parameters, and example requests and responses.
-
-You can use the Swagger UI to send requests to the API endpoints and test them directly from the documentation page and view the corresponding responses.
 
 ## Multi-Agent RAG Workflow
 
@@ -253,7 +233,4 @@ If you encounter any issues while setting up or running the application, please 
 
 - This project was tested on a Windows 10 machine. Suggested to run on a Windows 10 machine.
 - You have the required dependencies installed.
-- The CSV files in the `data` directory are properly formatted.
-- Docker and Docker Compose are installed and running correctly.
-
-If the issue persists, please do contact me via [email](mailto:patel.nishils@northeastern.edu).
+- Docker and Docker Compose are installed and running correctly..
