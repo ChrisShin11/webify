@@ -57,7 +57,7 @@ function App() {
             }
           />
           <Route path='/chat-widget-preview' element={<Chatbot messages={messages} />} />
-          {/* <Route path='/file' element={<FileTable {...fileTableProps} />} />  */}
+          <Route path='/file' element={<FileTable {...fileTableProps} />} /> 
           <Route
             path='/header-preview'
             element={
