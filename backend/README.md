@@ -138,19 +138,19 @@ This function uses an llm to create neo4j graph nodes based on input documentati
 
 #### Graph Structure
 
-Entities and relationships are hardcoded assuming that organizations will have similar needs, therefore allowing the work to be done by the developers rather than the end user. In the future, we can integrate user input to change these for niche use cases. 
+Entities and relationships are hardcoded assuming that organizations will have similar needs, therefore allowing the work to be done by the developers rather than the end user. In the future, we can integrate user input to change these for niche use cases. The following were used in the context of this project:
 
-Entities: "PERSON", "TASK", "DEPARTMENT", "POSITION", "PROJECT"
+    Entities: PERSON, TASK, DEPARTMENT, POSITION, PROJECT
 
-Relations: "WORKS_WITH", "WORKS_AS", "WORKS_FOR", "SUPERVISES", "SUPERVISED BY", "ASSIGNED_TO", "ASSOCIATED_WITH"
+    Relations: WORKS_WITH, WORKS_AS, WORKS_FOR, SUPERVISES, SUPERVISED BY, ASSIGNED_TO, ASSOCIATED_WITH
 
 A validation schema relating which relationships can be assigned to which entities needs to be derived from the given entities and relations. For now it is hardcoded to the following: 
 
-    "PERSON": ["ASSIGNED_TO", "WORKS_WITH", "WORKS_AS", "SUPERVISES", "SUPERVISED BY"],
-    "TASK": ["ASSIGNED_TO", "ASSOCIATED_WITH"],
-    "DEPARTMENT": ["ASSOCIATED_WITH", "ASSIGNED_TO"],
-    "POSITION": ["ASSOCIATED_WITH", "ASSIGNED_TO"],
-    "PROJECT": ["ASSIGNED_TO", "ASSOCIATED_WITH"],
+    PERSON:     ASSIGNED_TO, WORKS_WITH, WORKS_AS, SUPERVISES, SUPERVISED BY
+    TASK:       ASSIGNED_TO, ASSOCIATED_WITH
+    DEPARTMENT: ASSOCIATED_WITH, ASSIGNED_TO
+    POSITION:   ASSOCIATED_WITH, ASSIGNED_TO"
+    PROJECT:    ASSIGNED_TO, ASSOCIATED_WITH
     
 #### Input Data Extraction
 
