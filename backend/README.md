@@ -50,7 +50,7 @@ $ source .venv/bin/activate # Linux/macOS
 ```bash
 pip install -r requirements.txt
 ```
-4. Edit particular file within the python virtual env
+4. Edit file within the python virtual env
 
 Delete or comment the following line of code in python-env\Lib\site-packages\llama_index\core\indices\knowledge_graph\base.py
 ```
