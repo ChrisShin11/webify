@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/styled": "^11.13.0",
     "@mui/material": "^5.16.4",
     "@mui/types": "^7.2.15",
     "@neo4j-ndl/base": "^2.6.0",
